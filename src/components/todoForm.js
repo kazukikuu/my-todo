@@ -1,8 +1,7 @@
+import React, { Component } from 'react';
 import { TextField, Button } from '@material-ui/core';
 import { createMuiTheme } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
-import React, { Component } from 'react';
-
 
 const style = {
   background: '#B861E0',
@@ -10,57 +9,21 @@ const style = {
   fontWeight: 'bold '
 }
 
+const Form = (props) => (
+  <form onSubmit={props.handleAdd}>
+    <div >
 
-class TodoForm extends Component {
+      <TextField id="standard-basic" name="title" type="text" label="タスク" style={{
+        width: '300px'
+      }} />
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      task: "",
-      line: ""
-    }
+      <TextField id="standard-basic" name="line" type="text" label="期限" />
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+      <Button variant="contained" type="submit" style={style}>
+        タスク追加
+        </Button>
+    </div>
+  </form>
+);
 
-  }
-
-  handleChange(event) {
-    this.setState({ task: event.target.task });
-  }
-
-  handleSubmit(event) {
-    alert('タスク: ' + this.state.task);
-    event.preventDefault();
-  }
-
-
-  render() {
-    return (
-      <>
-        <form onSubmit={this.handleSubmit}>
-
-
-          <TextField id="standard-basic" label="タスク" style={{
-            width: '300px'
-          }} value={this.state.task} onChange={this.handleChange} />
-          <input type="submit" value="Submit" />
-
-          {/* <TextField id="standard-basic" label="期限" style={{
-            Weight: '100px'
-          }} value={this.state.line} onChange={} /> */}
-
-          {/* <Button variant="contained" style={style}>
-            タスク追加
-        </Button> */}
-
-        </form>
-
-
-      </>
-    );
-  }
-}
-
-
-export default TodoForm;
+export default Form;

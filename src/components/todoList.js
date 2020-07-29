@@ -1,23 +1,12 @@
-import TodoForm from './todoForm'
-import React from 'react';
+import React, { Component } from 'react';
 
 
-class TodoList extends TodoForm {
-  constructor(props) {
-    super(props);
-  }
+const List = (props) => (
+  <ul>
+    {props.todos.map((todo, i) => {
+      return <li key={i}>{todo.title}</li>
+    })}
+  </ul>
+);
 
-  render() {
-    return (
-      <>
-        {this.props.task}
-        {this.props.line}
-      </>
-    );
-
-  }
-
-}
-
-
-export default TodoList;
+export default List;
