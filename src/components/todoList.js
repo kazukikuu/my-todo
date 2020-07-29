@@ -1,18 +1,22 @@
-import React, { useContext } from 'react'
+import TodoForm from './todoForm'
+import React from 'react';
 
 
+class TodoList extends TodoForm {
+  constructor(props) {
+    super(props);
+  }
 
+  render() {
+    return (
+      <>
+        {this.props.task}
+        {this.props.line}
+      </>
+    );
 
-function TodoList() {
+  }
 
-  return (
-    <>
-
-      <tbody>
-        {state.events.map((event, index) => (<Event key={index} event={event} />))}
-      </tbody>
-    </>
-  );
 }
 
 

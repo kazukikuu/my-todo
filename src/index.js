@@ -3,10 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import TodoForm from './components/todoForm';
 import * as serviceWorker from './serviceWorker';
+import TodoList from './components/todoList'
+
+
 
 ReactDOM.render(
   <React.StrictMode>
     <TodoForm />
+    <TodoList />
   </React.StrictMode>,
   document.getElementById('root')
 );
