@@ -1,4 +1,15 @@
 import React, { Component } from 'react';
+import _ from 'lodash'
+
+
+// class List extends Component {
+//   constructor(props) {
+
+//   }
+
+
+// }
+
 
 
 const List = (props) => (
@@ -6,9 +17,17 @@ const List = (props) => (
     {props.todos.map((todo, i) => {
       return (
         <React.Fragment>
+          <div>
 
-          <p key={i}>{todo.title} {todo.line}</p>
-          <input type="checkbox" />
+            <div key={i}>
+              <input type="checkbox" />
+              {todo.title}   {todo.line}
+
+              <input type="button" value="☓"
+                onClick={() => this.deleteTodo(i)} />
+            </div>
+
+          </div>
         </React.Fragment>
       )
 
