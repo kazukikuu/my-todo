@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { TextField, Button } from '@material-ui/core';
 import { createMuiTheme } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
+import DatePickers from './Date'
 
 const style = {
   background: '#B861E0',
@@ -12,12 +13,15 @@ const style = {
 const Form = (props) => (
   <form onSubmit={props.handleAdd}>
     <div >
-
       <TextField id="standard-basic" name="title" type="text" label="タスク" style={{
         width: '300px'
       }} />
 
-      <TextField id="standard-basic" name="line" type="text" label="期限" />
+
+      {DatePickers()}
+
+      {/* <TextField id="standard-basic" name="line" type="text" label="期限" /> */}
+
 
       <Button variant="contained" type="submit" style={style}>
         タスク追加

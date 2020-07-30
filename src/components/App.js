@@ -5,6 +5,7 @@ import { TextField, Button } from '@material-ui/core';
 import { createMuiTheme } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 
+
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -18,10 +19,8 @@ export default class App extends Component {
   handleAdd(e) {
     e.preventDefault();
     // フォームから受け取ったデータをオブジェクトに挿入して、stateのtodo配列に追加
-
-
     this.state.todo.push({ title: e.target.title.value });
-    this.state.todo.push({ line: e.target.title.value });
+    this.state.todo.push({ line: e.target.line.value });
     this.state.todo.push();
     // setStateを使ってstateを上書き
     this.setState({ todo: this.state.todo });
@@ -34,7 +33,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <div >
+      <div>
 
         <Form handleAdd={this.handleAdd} />
         <div></div>
