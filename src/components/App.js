@@ -11,9 +11,11 @@ export default class App extends Component {
     super(props);
     this.state = {
       todo: [{ title: "デフォルト", line: "2021-01-01" },
+      { title: "デフォルト2", line: "2021-02-01" }
       ]
     };
     this.handleAdd = this.handleAdd.bind(this);
+    this.deleteTodo = this.deleteTodo.bind(this);
   }
 
   // データ保存
@@ -33,6 +35,7 @@ export default class App extends Component {
   }
 
   deleteTodo(i) {
+    console.log(i)
     // 削除
     this.state.todo.splice(i, 1);
     // 保存
@@ -48,7 +51,9 @@ export default class App extends Component {
 
         <Form handleAdd={this.handleAdd} />
         <div></div>
-        <List todos={this.state.todo} />
+        <List todos={this.state.todo}
+          deleteTodo={this.deleteTodo}
+        />
       </div>
     );
   }
