@@ -3,6 +3,7 @@ import _ from 'lodash'
 import { Button } from '@material-ui/core';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
+
 const style = {
   width: '0px',
   padding: '10px',
@@ -20,17 +21,13 @@ const List = (props) => (
       return (
         <React.Fragment>
           <div>
-
-            {/* <div key={i}>
-              <input type="checkbox" />
-              {todo.title}   {todo.line}
-
-              <input type="button" value="☓"
-                onClick={() => this.deleteTodo(i)} />
-               */}
-
             <li key={i}>
+              <Button variant="outlined" color="primary"
+                onClick={() => props.completeTodo(i)} >
+
+              </Button>
               {todo.title}{todo.line}
+
               <Button variant="outlined" color="secondary" style={style}
                 onClick={() => props.deleteTodo(i)} >
                 ×

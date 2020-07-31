@@ -3,6 +3,7 @@ import { TextField, Button } from '@material-ui/core';
 import { createMuiTheme } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 import DatePickers from './Date'
+import ControlledOpenSelect from './select'
 
 const style = {
   background: '#B861E0',
@@ -26,6 +27,7 @@ const Form = (props) => (
       <Button variant="contained" type="submit" style={style}>
         タスク追加
         </Button>
+      {ControlledOpenSelect()}
     </div>
   </form>
 );

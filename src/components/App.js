@@ -5,17 +5,19 @@ import { TextField, Button } from '@material-ui/core';
 import { createMuiTheme } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 
-
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       todo: [{ title: "デフォルト", line: "2021-01-01" },
       { title: "デフォルト2", line: "2021-02-01" }
-      ]
+      ],
+
+      done: []
     };
     this.handleAdd = this.handleAdd.bind(this);
     this.deleteTodo = this.deleteTodo.bind(this);
+    this.completeTodo = this.completeTodo.bind(this);
   }
 
   // データ保存
@@ -45,6 +47,20 @@ export default class App extends Component {
   }
 
 
+  completeTodo(j) {
+
+    // done配列に完了したtodoを追加
+    this.state.done = this.state.todo.splice(j, 1);
+
+    this.setState({
+      done: this.state.done,
+      todo: this.state.todo
+    });
+    console.log(this.state.done);
+    console.log(this.state.todo);
+  }
+
+
   render() {
     return (
       <div>
@@ -53,6 +69,7 @@ export default class App extends Component {
         <div></div>
         <List todos={this.state.todo}
           deleteTodo={this.deleteTodo}
+          completeTodo={this.completeTodo}
         />
       </div>
     );
