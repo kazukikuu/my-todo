@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash'
 import { Button } from '@material-ui/core';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 
 const style = {
@@ -15,29 +14,28 @@ const style = {
 }
 
 
-const List = (props) => (
+const DoneList = (props) => (
   <ul>
-    {props.todos.map((todo, i) => {
+    {props.done.map((d, i) => {
       return (
-        <React.Fragment>
-
+        < >
           <div>
             <li key={i}>
               <Button variant="outlined" color="primary"
-                onClick={() => props.completeTodo(i)} >
+                onClick={() => props.uncompleteTodo(i)} >
               </Button>
-              {todo.title}{todo.line}
+              {d.title}{d.line}
               <Button variant="outlined" color="secondary" style={style}
-                onClick={() => props.deleteTodo(i)} >
+                onClick={() => props.deleteDone(i)} >
                 ×
               </Button>
             </li>
           </div>
-        </React.Fragment>
+        </>
       )
 
     })}
   </ul >
 );
 
-export default List;
+export default DoneList;
