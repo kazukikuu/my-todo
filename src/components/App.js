@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import Form from './todoForm';
 import List from './todoList';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button, Select } from '@material-ui/core';
 import { createMuiTheme } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 
 import DoneList from './todoDone'
+import FormControl from './select'
+
+
+
 
 export default class App extends Component {
   constructor(props) {
@@ -15,13 +19,15 @@ export default class App extends Component {
       { title: "デフォルト2", line: "2021-02-01" }
       ],
 
-      done: [{ title: "完了済み", line: "2021-02-01" }]
+      done: [{ title: "完了済み", line: "2021-02-01" }],
+      listNumber: 1
     };
     this.handleAdd = this.handleAdd.bind(this);
     this.deleteTodo = this.deleteTodo.bind(this);
     this.deleteDone = this.deleteDone.bind(this);
     this.completeTodo = this.completeTodo.bind(this);
     this.uncompleteTodo = this.uncompleteTodo.bind(this);
+    this.select = this.select.bind(this);
 
   }
 
@@ -86,34 +92,66 @@ export default class App extends Component {
 
   }
 
-  // Greeting() {
-  //   const isLoggedIn = props.isLoggedIn;
-  //   if (isLoggedIn) {
-  //     return <UserGreeting />;
-  //   }
-  //   return <GuestGreeting />;
-  // }
+  done() {
+    return <DoneList done={this.state.done}
+      completeTodo={this.completeTodo}
+      uncompleteTodo={this.uncompleteTodo}
+      deleteDone={this.deleteDone}
+    />
+  }
+
+  list() {
+    return <List todos={this.state.todo}
+      deleteTodo={this.deleteTodo}
+      completeTodo={this.completeTodo}
+    />
+  }
+
+  selectNumber() {
+    let num = this.state.listNumber
+
+    switch (num) {
+      case 0:
+      case 1:
+        return this.list()
+      case 2:
+        return this.done()
+    }
+
+    // if (num == 1) {
+
+    // } else {
+    //   return this.done()
+    // }
+
+
+  }
+
+
+  select(n) {
+    this.state.listNumber = n.target.value
+
+    this.setState({
+      listNumber: this.state.listNumber
+    });
+  }
+
+
+
+
 
 
 
   render() {
+
     return (
       <div>
         <Form handleAdd={this.handleAdd} />
         <div></div>
-
-
-        <List todos={this.state.todo}
-          deleteTodo={this.deleteTodo}
-          completeTodo={this.completeTodo}
-        />
-
-        <DoneList done={this.state.done}
-          completeTodo={this.completeTodo}
-          uncompleteTodo={this.uncompleteTodo}
-          deleteDone={this.deleteDone}
-        />
+        <FormControl select={this.select} />
+        {this.selectNumber()}
       </div>
+
     );
   }
 }

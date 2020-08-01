@@ -6,6 +6,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 
+
 const useStyles = makeStyles((theme) => ({
   button: {
     display: 'block',
@@ -17,13 +18,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ControlledOpenSelect() {
+export default function ControlledOpenSelect(props) {
   const classes = useStyles();
   const [age, setAge] = React.useState('');
   const [open, setOpen] = React.useState(false);
 
   const handleChange = (event) => {
     setAge(event.target.value);
+    return event.target.value
   };
 
   const handleClose = () => {
@@ -47,11 +49,11 @@ export default function ControlledOpenSelect() {
           onOpen={handleOpen}
           value={age}
           onChange={handleChange}
+          onClick={props.select}
         >
           <MenuItem value="">
-
           </MenuItem>
-          <MenuItem value={1}>未完了タスク</MenuItem>
+          <MenuItem value={1} >未完了タスク</MenuItem>
           <MenuItem value={2}>完了済みタスク</MenuItem>
         </Select>
       </FormControl>

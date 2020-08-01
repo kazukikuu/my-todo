@@ -20,7 +20,6 @@ const List = (props) => (
     {props.todos.map((todo, i) => {
       return (
         <React.Fragment>
-
           <div>
             <li key={i}>
               <Button variant="outlined" color="primary"
