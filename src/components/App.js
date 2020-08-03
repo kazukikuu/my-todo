@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
 import Form from './todoForm';
 import List from './todoList';
-import { TextField, Button, Select } from '@material-ui/core';
-import { createMuiTheme } from '@material-ui/core/styles';
-import purple from '@material-ui/core/colors/purple';
+import EditForm from './editForm'
 
 import DoneList from './todoDone'
 import FormControl from './select'
 
+
+// 通知
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+
+
+// 通知
+const notify = (n) => toast(`${n}を完了済みにしました`);
+const deleteNotify = (n) => toast(`${n}を削除しました`);
+const unNotify = (n) => toast(`${n}を未完了にしました`);
 
 
 
@@ -16,11 +26,13 @@ export default class App extends Component {
     super(props);
     this.state = {
       todo: [{ title: "デフォルト", line: "2021-01-01" },
-      { title: "デフォルト2", line: "2021-02-01" }
+      { title: "デフォルト2", line: "2021-02-01" },
+      { title: "デフォルト3", line: "2021-02-01" }
       ],
 
-      done: [{ title: "完了済み", line: "2021-02-01" }],
+      done: [{ title: "タスク完了", line: "2021-02-01" }],
       listNumber: 1
+
     };
     this.handleAdd = this.handleAdd.bind(this);
     this.deleteTodo = this.deleteTodo.bind(this);
@@ -29,6 +41,13 @@ export default class App extends Component {
     this.uncompleteTodo = this.uncompleteTodo.bind(this);
     this.select = this.select.bind(this);
 
+    this.editAdd = this.editAdd.bind(this)
+
+  }
+
+  editAdd() {
+    // e.preventDefault();
+    console.log('hello')
   }
 
   // データ保存
@@ -45,26 +64,36 @@ export default class App extends Component {
     // inputのvalueを空に
     e.target.title.value = '';
     e.target.line.value = '';
+
   }
 
+
+
   deleteTodo(i) {
-    console.log(i)
+    console.log(this.state.todo[i].title)
     // 削除
-    this.state.todo.splice(i, 1);
+    let d = this.state.todo.splice(i, 1);
     // 保存
     this.setState({
       todo: this.state.todo
     });
+
+
+    deleteNotify(d[0].title)
   }
 
   deleteDone(i) {
-    console.log(i)
+    console.log(this.state.done[i])
     // 削除
     this.state.done.splice(i, 1);
     // 保存
     this.setState({
       done: this.state.done
     });
+  }
+
+  editAdd() {
+    return console.log('hello')
   }
 
 
@@ -78,6 +107,7 @@ export default class App extends Component {
     });
     console.log(this.state.done)
 
+    notify(d[0].title)
   }
 
   uncompleteTodo(j) {
@@ -89,6 +119,7 @@ export default class App extends Component {
       todo: this.state.todo
     });
     console.log(this.state.todo)
+    unNotify(d[0].title)
 
   }
 
@@ -104,6 +135,7 @@ export default class App extends Component {
     return <List todos={this.state.todo}
       deleteTodo={this.deleteTodo}
       completeTodo={this.completeTodo}
+
     />
   }
 
@@ -117,14 +149,6 @@ export default class App extends Component {
       case 2:
         return this.done()
     }
-
-    // if (num == 1) {
-
-    // } else {
-    //   return this.done()
-    // }
-
-
   }
 
 
@@ -137,21 +161,24 @@ export default class App extends Component {
   }
 
 
-
-
-
-
-
   render() {
 
     return (
-      <div>
-        <Form handleAdd={this.handleAdd} />
-        <div></div>
-        <FormControl select={this.select} />
-        {this.selectNumber()}
-      </div>
+      <>
 
+        <ToastContainer />
+        <div>
+          <Form handleAdd={this.handleAdd} />
+          <div></div>
+          <FormControl select={this.select} />
+          {this.selectNumber()}
+
+
+          <EditForm />
+
+          <button onClick={() => this.editAdd()}>a</button>
+        </div>
+      </>
     );
   }
 }

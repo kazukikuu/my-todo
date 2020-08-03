@@ -1,17 +1,45 @@
 import React, { Component } from 'react';
 import _ from 'lodash'
 import { Button } from '@material-ui/core';
+import CheckIcon from '@material-ui/icons/Check';
+import CloseIcon from '@material-ui/icons/Close';
+
+// テーブルマテリアル
+import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 
-const style = {
-  width: '0px',
-  padding: '10px',
+
+const deletesStyle = {
+  padding: '13px',
   minWidth: '0px',
   borderRadius: '100px',
   lineHeight: '0',
   fontFamily: 'none',
-  margin: '5px'
+  margin: '5px',
+  border: '2px  solid',
+  color: '#ffa4a4'
 }
+
+const checkStyle = {
+  padding: '13px',
+  minWidth: '0px',
+  borderRadius: '100px',
+  lineHeight: '0',
+  fontFamily: 'none',
+  margin: '5px',
+  border: '2px  solid',
+  color: '#fff',
+  boxShadow: 'none',
+  backgroundColor: 'rgb(114 255 146)'
+}
+
 
 
 const DoneList = (props) => (
@@ -20,16 +48,28 @@ const DoneList = (props) => (
       return (
         < >
           <div>
-            <li key={i}>
-              <Button variant="outlined" color="primary"
-                onClick={() => props.uncompleteTodo(i)} >
-              </Button>
-              {d.title}{d.line}
-              <Button variant="outlined" color="secondary" style={style}
-                onClick={() => props.deleteDone(i)} >
-                ×
-              </Button>
-            </li>
+            <TableContainer >
+              <Table>
+                <TableBody key={i}>
+
+                  <TableCell>
+                    <Button variant="contained"
+                      style={checkStyle} onClick={() => props.uncompleteTodo(i)} >
+                      <CheckIcon />
+                    </Button>
+                  </TableCell>
+                  <TableCell><h2>{d.title}</h2></TableCell>
+                  <TableCell>{d.line}</TableCell>
+                  <TableCell>
+                    <Button variant="outlined" color="secondary" style={deletesStyle}
+                      onClick={() => props.deleteDone(i)} >
+                      <CloseIcon />
+                    </Button>
+                  </TableCell>
+
+                </TableBody>
+              </Table>
+            </TableContainer>
           </div>
         </>
       )
