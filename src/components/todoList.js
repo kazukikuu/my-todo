@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import _ from 'lodash'
+import React from 'react';
+import _, { values } from 'lodash'
 import { Button } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
@@ -9,7 +9,9 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
-import EditForm from './editForm'
+
+import DatePickers from './Date'
+import EditForm from './editForm';
 
 
 const useStyles = makeStyles({
@@ -44,14 +46,13 @@ const checkStyle = {
 
 
 const List = (props) => (
+
   <ul>
     {props.todos.map((todo, i) => {
       return (
 
         <React.Fragment>
-          {/* 編集 */}
-          <EditForm title={todo.title} id={i} />
-          <TableContainer >
+          <TableContainer>
             <Table>
               <TableBody key={i}>
                 <TableCell> <Button variant="outlined" color="primary"
@@ -61,10 +62,20 @@ const List = (props) => (
                 </TableCell>
                 <TableCell align="right"><h2>{todo.title}</h2></TableCell>
 
+                {todo.editing ? (
+                  <TableCell align="right" >
+                    <p>{todo.line}まで</p>
+                    <Button variant="outlined" onClick={() => props.editButton(i)}>編集</Button></TableCell>
+                ) : (
+                    <TableCell align="right">
+                      <input type="text"
+                        defaultValue={props.input} onChange={(e) => props.handleValue(e)} ></input>
+                      <Button variant="outlined" onClick={() => props.editTodo(i)}>更新</Button>
+                    </TableCell>
+                  )}
 
-                <TableCell align="right" >{todo.line}まで</TableCell>
-
-
+                <TableCell>
+                </TableCell>
                 <TableCell>
                   <Button variant="outlined" color="secondary" style={deletesStyle}
                     onClick={() => props.deleteTodo(i)} >

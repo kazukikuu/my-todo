@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-
 const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
@@ -23,7 +22,7 @@ export default function DatePickers() {
       id="date"
       label="期限"
       type="date"
-      defaultValue="2021-01-01"
+      defaultValue=""
       className={classes.textField}
       InputLabelProps={{
         shrink: true,

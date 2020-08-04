@@ -13,7 +13,7 @@ const style = {
 
 const Form = (props) => (
   <form onSubmit={props.handleAdd}>
-    <div >
+    <div>
       <TextField id="standard-basic" name="title" type="text" label="タスク" style={{
         width: '300px'
       }} />

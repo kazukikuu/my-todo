@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import Form from './todoForm';
 import List from './todoList';
-import EditForm from './editForm'
 
 import DoneList from './todoDone'
 import FormControl from './select'
 
-
 // 通知
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-
 
 
 // 通知
@@ -20,18 +16,19 @@ const deleteNotify = (n) => toast(`${n}を削除しました`);
 const unNotify = (n) => toast(`${n}を未完了にしました`);
 
 
-
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      todo: [{ title: "デフォルト", line: "2021-01-01" },
-      { title: "デフォルト2", line: "2021-02-01" },
-      { title: "デフォルト3", line: "2021-02-01" }
+      todo: [{ title: "デフォルト", line: "2021-01-01", editing: true },
+      { title: "デフォルト2", line: "2021-02-01", editing: true },
+      { title: "デフォルト3", line: "2021-02-01", editing: true }
       ],
 
-      done: [{ title: "タスク完了", line: "2021-02-01" }],
-      listNumber: 1
+      done: [{ title: "デフォルト完了", line: "2021-02-01" }],
+      listNumber: 1,
+      input: "",
+      // editing: true
 
     };
     this.handleAdd = this.handleAdd.bind(this);
@@ -40,19 +37,53 @@ export default class App extends Component {
     this.completeTodo = this.completeTodo.bind(this);
     this.uncompleteTodo = this.uncompleteTodo.bind(this);
     this.select = this.select.bind(this);
+    this.editButton = this.editButton.bind(this);
+    this.editTodo = this.editTodo.bind(this);
+    this.handleValue = this.handleValue.bind(this);
+  }
 
-    this.editAdd = this.editAdd.bind(this)
+  // 編集ボタンを'更新'に切り替え
+  editButton(i) {
+    this.state.todo[i] = { title: this.state.todo[i].title, line: this.state.todo[i].line, editing: !this.state.todo[i].editing }
+
+    this.setState({
+      input: this.state.todo[i].line
+    })
+
 
   }
 
-  editAdd() {
-    // e.preventDefault();
-    console.log('hello')
+  // 編集した内容を保存
+  editTodo(i) {
+    console.log(this.state.input)
+    this.state.todo[i] = { title: this.state.todo[i].title, line: this.state.input, editing: !this.state.todo[i].editing }
+
+    console.log(this.state.todo[i])
+
+    this.state.todo.push(this.state.todo[i]);
+
+    this.setState({
+      todo: this.state.todo
+    })
+
+
+
+    // this.setState({ todo: this.state.todo[i] });
+
+  }
+
+  handleValue(e) {
+    console.log(e.target.value)
+    this.setState({
+      input: e.target.value
+    })
   }
 
   // データ保存
   handleAdd(e) {
     e.preventDefault();
+
+
     // フォームから受け取ったデータをオブジェクトに挿入して、stateのtodo配列に追加
     this.state.todo.push({ title: e.target.title.value, line: e.target.line.value });
 
@@ -77,9 +108,8 @@ export default class App extends Component {
     this.setState({
       todo: this.state.todo
     });
-
-
     deleteNotify(d[0].title)
+
   }
 
   deleteDone(i) {
@@ -90,10 +120,6 @@ export default class App extends Component {
     this.setState({
       done: this.state.done
     });
-  }
-
-  editAdd() {
-    return console.log('hello')
   }
 
 
@@ -133,9 +159,13 @@ export default class App extends Component {
 
   list() {
     return <List todos={this.state.todo}
+      editing={this.state.editing}
+      input={this.state.input}
       deleteTodo={this.deleteTodo}
       completeTodo={this.completeTodo}
-
+      editButton={this.editButton}
+      editTodo={this.editTodo}
+      handleValue={this.handleValue}
     />
   }
 
@@ -168,15 +198,12 @@ export default class App extends Component {
 
         <ToastContainer />
         <div>
-          <Form handleAdd={this.handleAdd} />
+          <Form handleAdd={this.handleAdd}
+            todoInput={this.state.input}
+          />
           <div></div>
           <FormControl select={this.select} />
           {this.selectNumber()}
-
-
-          <EditForm />
-
-          <button onClick={() => this.editAdd()}>a</button>
         </div>
       </>
     );
